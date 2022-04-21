@@ -9,8 +9,7 @@ public class Server {
             ServerSocket server = new ServerSocket(8081);
             System.out.println("Server started!");
             Socket clientSocket = server.accept();
-            try {
-                PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+            try (PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)) {
                 BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
                 System.out.println("New connection accepted");
@@ -20,10 +19,6 @@ public class Server {
                 System.out.println(String.format("Hi %s, your port is %d", name, clientSocket.getPort()));
                 out.flush();
 
-            } finally {
-                clientSocket.close();
-                System.out.println("Server close!");
-                server.close();
             }
 
         } catch (IOException e) {

@@ -3,11 +3,11 @@ import java.net.Socket;
 
 public class Client {
 
-    public static void main(String[] args) {
-        try {
+    public static void main(String[] args) throws IOException {
 
             Socket clientSocket = new Socket("localhost", 8081);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+            try(BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))){
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
 
             System.out.println("client start");
